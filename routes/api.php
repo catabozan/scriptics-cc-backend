@@ -26,3 +26,11 @@ Route::middleware('auth:sanctum')->group(function () {
             ->name('products.destroy');
     });
 });
+
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])
+        ->name('products.index');
+
+    Route::get('/{product}', [ProductController::class, 'show'])
+        ->name('products.show');
+});
