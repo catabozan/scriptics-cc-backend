@@ -1,0 +1,21 @@
+name: Code analysis (phpinsights and larastan)
+on: [push, pull_request]
+jobs:
+  phpinsights:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Analyze code with PHP insights
+        run: php artisan insights -n --ansi --format=github-action
+
+      - name: Analyze code with larastan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G

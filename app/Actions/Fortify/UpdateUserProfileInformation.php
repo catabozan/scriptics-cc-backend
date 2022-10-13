@@ -26,14 +26,17 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'string',
                 'email',
                 'max:255',
+                /** @phpstan-ignore-next-line */
                 Rule::unique('users')->ignore($user->id),
             ],
         ])->validateWithBag('updateProfileInformation');
 
+        /** @phpstan-ignore-next-line */
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
+            /** @phpstan-ignore-next-line */
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
@@ -50,12 +53,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     protected function updateVerifiedUser($user, array $input)
     {
+        /** @phpstan-ignore-next-line */
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();
 
+        /** @phpstan-ignore-next-line */
         $user->sendEmailVerificationNotification();
     }
 }

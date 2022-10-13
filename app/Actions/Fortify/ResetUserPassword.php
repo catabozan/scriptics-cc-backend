@@ -23,6 +23,7 @@ class ResetUserPassword implements ResetsUserPasswords
             'password' => $this->passwordRules(),
         ])->validate();
 
+        /** @phpstan-ignore-next-line */
         $user->forceFill([
             'password' => Hash::make($input['password']),
         ])->save();
