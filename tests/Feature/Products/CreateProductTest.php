@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\UserRoleEnum;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use function Pest\Laravel\actingAs;
@@ -10,7 +12,8 @@ use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotEmpty;
 
 it('can create a product', function () {
-    actingAs(User::factory()->create());
+    $bob = User::factory()->create(['role' => UserRoleEnum::admin()]);
+    actingAs($bob);
 
     $product = Product::factory()->make();
 
@@ -31,7 +34,8 @@ it('can create a product', function () {
 });
 
 it('validates the request', function () {
-    actingAs(User::factory()->create());
+    $bob = User::factory()->create(['role' => UserRoleEnum::admin()]);
+    actingAs($bob);
 
     $product = Product::factory()->make();
 
@@ -42,6 +46,20 @@ it('validates the request', function () {
         // 'stock' => $product->stock,
     ]);
 })->expectException(ValidationException::class);
+
+it('checks for permission to create a product', function () {
+    $bob = User::factory()->create(['role' => UserRoleEnum::customer()]);
+    actingAs($bob);
+
+    $product = Product::factory()->make();
+
+    postJson(route('products.store'), [
+        'title' => $product->title,
+        'description' => $product->description,
+        'price' => $product->price,
+        'stock' => $product->stock,
+    ]);
+})->expectException(AuthorizationException::class);
 
 test('you must be authenticated to create a product', function () {
     $product = Product::factory()->make();
