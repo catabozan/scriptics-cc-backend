@@ -18,5 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('products')->group(function () {
         Route::post('/', [ProductController::class, 'store'])
             ->name('products.store');
+
+        Route::patch('/{product}', [ProductController::class, 'update'])
+            ->name('products.update');
     });
 });
