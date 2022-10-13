@@ -21,5 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::patch('/{product}', [ProductController::class, 'update'])
             ->name('products.update');
+
+        Route::delete('/{product}', [ProductController::class, 'destroy'])
+            ->name('products.destroy');
     });
 });

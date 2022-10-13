@@ -4,7 +4,6 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\postJson;
 use function PHPUnit\Framework\assertEquals;

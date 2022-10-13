@@ -2,10 +2,8 @@
 
 use App\Models\Product;
 use App\Models\User;
-
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\patchJson;
 use function PHPUnit\Framework\assertEquals;
@@ -18,7 +16,7 @@ it('can update a product', function () {
     patchJson(
         route('products.update', ['product' => $product->getKey()]),
         [
-            'title' => 'new very awesome title'
+            'title' => 'new very awesome title',
         ]
     );
 
@@ -33,7 +31,7 @@ it('validates the request', function () {
     patchJson(
         route('products.update', ['product' => $product->getKey()]),
         [
-            'price' => 'not a number'
+            'price' => 'not a number',
         ]
     );
 })->expectException(ValidationException::class);
@@ -44,7 +42,7 @@ test('you must be authenticated to update a product', function () {
     patchJson(
         route('products.update', ['product' => $product->getKey()]),
         [
-            'title' => 'new very awesome title'
+            'title' => 'new very awesome title',
         ]
     );
 })->expectException(AuthenticationException::class);
