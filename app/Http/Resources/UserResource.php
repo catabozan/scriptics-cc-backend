@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin Order */
-class OrderResource extends JsonResource
+/** @mixin User */
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +18,8 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->getKey(),
-            'address' => $this->address,
-            'phone_number' => $this->phone_number,
-            'product' => new ProductResource($this->product),
-            'user' => new UserResource($this->customer),
-            'created_at' => $this->created_at,
+            'name' => $this->name,
+            'email' => $this->email,
         ];
     }
 }
