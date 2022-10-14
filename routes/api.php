@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,7 @@ Route::prefix('products')->group(function () {
 
     Route::get('/{product}', [ProductController::class, 'show'])
         ->name('products.show');
+
+    Route::post('/{product}/place-order', [OrderController::class, 'store'])
+        ->name('order.store');
 });
