@@ -16,7 +16,7 @@ it('can create an order', function () {
     $product = Product::factory()->create();
 
     postJson(
-        route('order.store', ['product' => $product->getKey()]),
+        route('orders.store', ['product' => $product->getKey()]),
         [
             'address' => 'Real Street, nr.1',
             'phone_number' => '23456789',
@@ -32,7 +32,7 @@ it('can create an anonymous order', function () {
     $product = Product::factory()->create();
 
     postJson(
-        route('order.store', ['product' => $product->getKey()]),
+        route('orders.store', ['product' => $product->getKey()]),
         [
             'address' => 'Real Street, nr.1',
             'phone_number' => '23456789',
@@ -50,7 +50,7 @@ it('validates the request', function () {
     $product = Product::factory()->create();
 
     postJson(
-        route('order.store', ['product' => $product->getKey()]),
+        route('orders.store', ['product' => $product->getKey()]),
         [
             'address' => 'Real Street, nr.1',
             // 'phone_number' => '23456789'

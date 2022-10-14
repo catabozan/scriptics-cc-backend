@@ -28,6 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{product}', [ProductController::class, 'destroy'])
             ->middleware('admin')
             ->name('products.destroy');
+
+        Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
+            ->name('orders.destroy');
     });
 });
 
@@ -38,6 +41,6 @@ Route::prefix('products')->group(function () {
     Route::get('/{product}', [ProductController::class, 'show'])
         ->name('products.show');
 
-    Route::post('/{product}/place-order', [OrderController::class, 'store'])
-        ->name('order.store');
+    Route::post('/{product}/orders', [OrderController::class, 'store'])
+        ->name('orders.store');
 });
