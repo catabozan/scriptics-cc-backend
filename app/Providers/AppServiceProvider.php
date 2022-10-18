@@ -24,11 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /** @var bool */
-        $isProduction = ! $this->app->isProduction();
-
-        Model::preventLazyLoading($isProduction);
-        Model::preventAccessingMissingAttributes($isProduction);
-        Model::preventSilentlyDiscardingAttributes($isProduction);
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }
