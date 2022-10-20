@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -47,6 +48,13 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'message' => 'Not found.',
             ], 404);
+        });
+
+        $this->renderable(function (ValidationException $e, $request) {
+            return response()->json([
+                'message' => 'Invalid Request',
+                'errors' => $e->errors()
+            ], 422);
         });
     }
 }
