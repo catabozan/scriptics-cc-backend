@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,4 +60,9 @@ Route::prefix('orders')->group(function () {
 
     Route::get('/{order}', [OrderController::class, 'show'])
         ->name('orders.show');
+});
+
+
+Route::get('/user', function () {
+    return !empty(Auth::user()) ? new UserResource(Auth::user()) : response(['data' => null]);
 });
