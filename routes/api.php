@@ -62,7 +62,6 @@ Route::prefix('orders')->group(function () {
         ->name('orders.show');
 });
 
-
 Route::get('/user', function () {
-    return !empty(Auth::user()) ? new UserResource(Auth::user()) : response(['data' => null]);
+    return ! empty(Auth::user()) ? new UserResource(Auth::user()) : response(['data' => null]);
 });

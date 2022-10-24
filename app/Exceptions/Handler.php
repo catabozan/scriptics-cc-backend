@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ValidationException $e, $request) {
             return response()->json([
                 'message' => 'Invalid Request',
-                'errors' => $e->errors()
+                'errors' => $e->errors(),
             ], 422);
         });
     }

@@ -29,6 +29,12 @@ class MakeAdminUser extends Command
      */
     public function handle()
     {
+        if (! is_string($this->argument('user'))) {
+            $this->error('user argument must be a string');
+
+            return Command::FAILURE;
+        }
+
         if (empty($this->argument('user'))) {
             $user = User::factory()
                 ->create(['role' => UserRoleEnum::admin()]);
@@ -41,6 +47,7 @@ class MakeAdminUser extends Command
 
             if (empty($user)) {
                 $this->error("User #{$this->argument('user')} does not exist");
+
                 return Command::FAILURE;
             }
 
@@ -48,8 +55,6 @@ class MakeAdminUser extends Command
             $user->save();
             $this->info("User #{$this->argument('user')} has been granted admin privileges");
         }
-
-
 
         return Command::SUCCESS;
     }
