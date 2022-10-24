@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index(Request $request): ResourceCollection
     {
-        $products = Product::paginate();
+        $products = Product::orderBy('created_at', 'desc')->paginate();
 
         return ProductResource::collection($products);
     }
